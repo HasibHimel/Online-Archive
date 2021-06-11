@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateTeachersTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations. 
      *
      * @return void
      */
@@ -25,6 +25,16 @@ class CreateTeachersTable extends Migration
             $table->string('designation');
             $table->string('degrees');
             $table->timestamps();
+
+            $table->foreign('department_id')
+                  ->references('id')
+                  ->on('departments')
+                  ->onDelete('cascade'); 
+
+            $table->foreign('achievement_id')
+                  ->references('id')
+                  ->on('achievements')
+                  ->onDelete('cascade');
         });
     }
 

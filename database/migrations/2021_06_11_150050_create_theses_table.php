@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectsTable extends Migration
+class CreateThesesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations. 
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('theses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('topic');
             $table->string('category');
@@ -22,6 +22,16 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('teacher_id');
             $table->timestamps();
+
+            $table->foreign('student_id')
+            ->references('id')
+            ->on('students')
+            ->onDelete('cascade');
+
+            $table->foreign('teacher_id')
+            ->references('id')
+            ->on('teachers')
+            ->onDelete('cascade');
         });
     }
 
@@ -32,6 +42,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('theses');
     }
 }
