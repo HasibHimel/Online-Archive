@@ -14,14 +14,24 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table-> string('student_id');
             $table-> string('name');
             $table-> string('email');
             $table-> string('department');
             $table-> unsignedBigInteger('department_id');
-            $table-> unsignedBigInteger('achivement_id');
+            $table-> unsignedBigInteger('achievement_id');
             $table->timestamps();
+
+            $table->foreign('department_id')
+                ->references('id')
+                ->on('departments')
+                ->onDelete('cascade');
+
+            $table->foreign('achievement_id')
+                ->references('id')
+                ->on('achievements')
+                ->onDelete('cascade');
         });
     }
 
